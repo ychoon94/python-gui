@@ -88,21 +88,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_79" native="true">
-             <widget class="QPushButton" name="NextPagePB">
-              <property name="geometry">
-               <rect>
-                <x>160</x>
-                <y>60</y>
-                <width>80</width>
-                <height>25</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>Next Page</string>
-              </property>
-             </widget>
-            </widget>
+            <widget class="QWidget" name="widget_79" native="true"/>
            </item>
           </layout>
          </widget>
@@ -238,7 +224,7 @@
                <string>Choose your steak rarity:</string>
               </property>
              </widget>
-             <widget class="QPushButton" name="NextPageBB">
+             <widget class="QPushButton" name="BurgerPushButton">
               <property name="geometry">
                <rect>
                 <x>160</x>
@@ -278,21 +264,7 @@
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_31" native="true">
-             <widget class="QPushButton" name="NextPageCB">
-              <property name="geometry">
-               <rect>
-                <x>160</x>
-                <y>50</y>
-                <width>80</width>
-                <height>25</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>Next Page</string>
-              </property>
-             </widget>
-            </widget>
+            <widget class="QWidget" name="widget_31" native="true"/>
            </item>
           </layout>
          </widget>
@@ -473,7 +445,7 @@
             <string>Choose a type of sauce:</string>
            </property>
           </widget>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="IngredientPushButton">
            <property name="geometry">
             <rect>
              <x>180</x>
@@ -815,7 +787,7 @@
            </item>
            <item>
             <widget class="QWidget" name="widget_45" native="true">
-             <widget class="QPushButton" name="pushButton_2">
+             <widget class="QPushButton" name="AddOnPushButton">
               <property name="geometry">
                <rect>
                 <x>170</x>
@@ -925,6 +897,9 @@
                    <property name="text">
                     <string>Ingredient</string>
                    </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
                   </widget>
                  </item>
                  <item row="1" column="1">
@@ -964,6 +939,9 @@
                    </property>
                    <property name="text">
                     <string/>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
                    </property>
                   </widget>
                  </item>

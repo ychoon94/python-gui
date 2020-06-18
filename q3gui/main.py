@@ -18,11 +18,17 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
 
         # Food Selection Tab
         self.rarityBoxHide()
+        self.burgerPushButtHide()
         self.cbRadioButt.toggled.connect(self.rarityBoxHide)
+        self.cbRadioButt.toggled.connect(self.burgerPushButtShow)
         self.pbRadioButt.toggled.connect(self.rarityBoxHide)
+        self.pbRadioButt.toggled.connect(self.burgerPushButtShow)
         self.bbRadioButt.toggled.connect(self.rarityBoxShow)
+        self.bbRadioButt.toggled.connect(self.burgerPushButtShow)
+        self.BurgerPushButton.clicked.connect(self.nextPageToppings)
 
         # ingredient Customisation Tab
+        self.ingredientPushButtHide()
         self.LettuceRadioButt.toggle()
         self.LettuceRadioButt.toggled.connect(self.setLettuceOnToggle)
         self.CucumberRadioButt.toggle()
@@ -30,15 +36,33 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.OnionRadioButt.toggle()
         self.OnionRadioButt.toggled.connect(self.setOnionOnToggle)
         self.sauceBox.activated.connect(self.setSauce)
+        self.sauceBox.activated.connect(self.ingredientPushButtShow)
+        self.IngredientPushButton.clicked.connect(self.nextPageAddon)
 
         # addon Customisation Tab
+        self.addOnPushButtHide()
         self.DrinkSpinBox.valueChanged.connect(self.drinkAmount)
+        self.DrinkSpinBox.valueChanged.connect(self.addOnPushButtShow)
         self.CookieSpinBox.valueChanged.connect(self.cookieAmount)
+        self.CookieSpinBox.valueChanged.connect(self.addOnPushButtShow)
         self.MuffinSpinBox.valueChanged.connect(self.muffinAmount)
+        self.MuffinSpinBox.valueChanged.connect(self.addOnPushButtShow)
+        self.AddOnPushButton.clicked.connect(self.nextPageCheckout)
 
         # checkout tab
         self.tabWidget.currentChanged.connect(self.showTab)
 
+    # hide or show the next page push button for burger tab
+    def burgerPushButtHide(self):
+        self.BurgerPushButton.setVisible(False)
+
+    def burgerPushButtShow(self):
+        self.BurgerPushButton.setVisible(True)
+
+    def nextPageToppings(self):
+        self.tabWidget.setCurrentIndex(1)
+
+    # hide or show the rarity choose box
     def rarityBoxHide(self):
         self.steakRarityLabel.setVisible(False)
         self.rarityBox.setVisible(False)
@@ -47,46 +71,59 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
         self.steakRarityLabel.setVisible(True)
         self.rarityBox.setVisible(True)
 
+    # hide or show the next page push button for ingredient tab
+    def ingredientPushButtHide(self):
+        self.IngredientPushButton.setVisible(False)
+
+    def ingredientPushButtShow(self):
+        self.IngredientPushButton.setVisible(True)
+
+    def nextPageAddon(self):
+        self.tabWidget.setCurrentIndex(2)
+
+    # hide or show the next page push button for addon tab
+    def addOnPushButtHide(self):
+        self.AddOnPushButton.setVisible(False)
+
+    def addOnPushButtShow(self):
+        self.AddOnPushButton.setVisible(True)
+
+    def nextPageCheckout(self):
+        self.tabWidget.setCurrentIndex(3)
+
     def setLettuceOnToggle(self, enabled):
         if enabled:
             self.LettuceRadioButt.setText("Opt-In")
             burger.ingredient.pop(0)
             burger.ingredient.insert(0, "Lettuce")
-            print(burger.ingredient)
         else:
             self.LettuceRadioButt.setText("Opt-Out")
             burger.ingredient.remove("Lettuce")
             burger.ingredient.insert(0, "No Lettuce")
-            print(burger.ingredient)
 
     def setCucumberOnToggle(self, enabled):
         if enabled:
             self.CucumberRadioButt.setText("Opt-In")
             burger.ingredient.pop(1)
             burger.ingredient.insert(1, "Cucumber")
-            print(burger.ingredient)
         else:
             self.CucumberRadioButt.setText("Opt-Out")
             burger.ingredient.remove("Cucumber")
             burger.ingredient.insert(1, "No Cucumber")
-            print(burger.ingredient)
 
     def setOnionOnToggle(self, enabled):
         if enabled:
             self.OnionRadioButt.setText("Opt-In")
             burger.ingredient.pop(2)
             burger.ingredient.append("Onion")
-            print(burger.ingredient)
         else:
             self.OnionRadioButt.setText("Opt-Out")
             burger.ingredient.remove("Onion")
             burger.ingredient.insert(2, "No Onion")
-            print(burger.ingredient)
 
     def setSauce(self):
         sauce = self.sauceBox.currentText()
         burger.sauce = sauce
-        print(burger.sauce)
 
     def drinkAmount(self):
         addOn.drink = self.DrinkSpinBox.value()
@@ -120,6 +157,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 # set burger subtotalprice at checkout
                 self.BurgerSubTotalLabel.setText(
                         str(chickenBurger.burgerPrice))
+                # set sauce label
+                self.SauceLabel.setText(chickenBurger.sauce)
                 # easier access for totaling amount
                 burgerPrice = chickenBurger.burgerPrice
 
@@ -141,6 +180,8 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 # set burger subtotalprice at checkout
                 self.BurgerSubTotalLabel.setText(
                         str(porkBurger.burgerPrice))
+                # set sauce label
+                self.SauceLabel.setText(porkBurger.sauce)
                 # easier access for totaling amount
                 burgerPrice = porkBurger.burgerPrice
 
@@ -168,8 +209,10 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
                 # set burger subtotalprice at checkout
                 self.BurgerSubTotalLabel.setText(
                         str(beefBurger.burgerPrice))
+                # set sauce label
+                self.SauceLabel.setText(beefBurger.sauce)
                 # easier access for totaling amount
-                burgerPrice = porkBurger.burgerPrice
+                burgerPrice = beefBurger.burgerPrice
 
             # create addon object
             addon = addOn()
@@ -187,9 +230,6 @@ class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
             totaledPrice = addon.drinkPrice() + addon.cookiesPrice() +\
                 addon.muffinPrice() + burgerPrice
             self.totalAmountLabel.setText(str(totaledPrice))
-        #print(self.tabWidget.count())
-        #print(self.tabWidget.currentWidget())
-        print(self.tabWidget.currentIndex())
 
 
 if __name__ == "__main__":
