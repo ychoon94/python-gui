@@ -2,6 +2,7 @@ class addOn:
     drink = 0
     cookies = 0
     muffin = 0
+
     # amount of drink/cookies/muffin user ordered
     def __init__(self):
         self.drink = addOn.drink
